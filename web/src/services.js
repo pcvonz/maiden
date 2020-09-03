@@ -1,6 +1,7 @@
 import OS from './utils';
 import EditorMode from './mode';
 import LuaMode from './mode/lua';
+import FennelMode from './mode/fennel'
 
 const Modifier = {
   CMD: 1,
@@ -145,6 +146,7 @@ class EditorService {
     this.luaMode = new LuaMode();
     this.textMode = new TextMode();
     this.jsonMode = new JsonMode();
+    this.fennelMode = new FennelMode();
   }
   getMode(fileName) {
     if (fileName) {
@@ -153,6 +155,10 @@ class EditorService {
       }
       else if(fileName.endsWith('.json')) {
         return this.jsonMode;
+      }
+      else if(fileName.endsWith('.fnl')) {
+        console.log("Fennel mode!");
+        return this.fennelMode;
       }
     }
     // fall back to a simple text mode for non-lua files.
