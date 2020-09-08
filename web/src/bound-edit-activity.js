@@ -128,7 +128,12 @@ const mapDispatchToProps = dispatch => ({
         console.log("files under /lib/, /data/, and /audio/ cannot be run as a script")
         return undefined
       }
-      const cmd = `norns.script.load("${file}")`;
+      let cmd;
+      if (file.endsWith(".fnl")) {
+        cmd = `(norns.script.load "${file}")`;
+      } else {
+        cmd = `norns.script.load("${file})"`;
+      }
       dispatch(replSend(MATRON_COMPONENT, cmd));
     } else {
       console.log('resource:', resource, 'cannot be run as a script');
